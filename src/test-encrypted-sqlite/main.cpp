@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
           "NAME           TEXT    NOT NULL," \
           "AGE            INT     NOT NULL," \
           "ADDRESS        CHAR(50)," \
-          "SALARY         REAL );"; //Create table
+          "SALARY         REAL );";         // Create table
     /* Execute SQL statement */
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
 
@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
           "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)" \
           "VALUES (3, 'Teddy', 23, 'Norway', 20000.00);" \
           "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)" \
-          "VALUES (4, 'Mark', 25, 'Rich-Mond', 65000.00);";  //Insert data
+          "VALUES (4, 'Mark', 25, 'Rich-Mond', 65000.00);";  // Insert data
     /* Execute SQL statement */
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
 
@@ -78,10 +78,11 @@ int main(int argc, char* argv[])
     }
 
     /* Create SQL statement */
-    sql = "SELECT * from COMPANY"; //Select data
+    sql = "SELECT * from COMPANY";      // Select data
     /* Execute SQL statement */
     const char* data = "Callback function called";
-    rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+    rc = sqlite3_exec(db, sql, callback, reinterpret_cast<void*>(data),
+                      &zErrMsg);
 
     if (rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);

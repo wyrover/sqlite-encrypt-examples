@@ -60,6 +60,48 @@ workspace "sqlite3"
                 
             }
 
+           
+        project "sqlite3dll"            
+            kind "SharedLib"
+            targetname "sqlite3"
+            files 
+            { 
+                "src/sqlite/sqlite3secure.c", 
+                "src/sqlite/*.h", 
+                "src/sqlite/sqlite3.def", 
+                "src/sqlite/sqlite3.rc" 
+            }
+            vpaths 
+            {
+                ["Header Files"] = { "**.h" },
+                ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
+            }           
+
+            defines 
+            {
+                "CODEC_TYPE=CODEC_TYPE_AES256",         -- aes256
+                --"CODEC_TYPE=CODEC_TYPE_AES128",       -- aes128
+                "_USRDLL",
+                "THREADSAFE=1",
+                "SQLITE_SOUNDEX",
+                "SQLITE_ENABLE_COLUMN_METADATA",
+                "SQLITE_HAS_CODEC",
+                "SQLITE_SECURE_DELETE",
+                "SQLITE_ENABLE_FTS3",
+                "SQLITE_ENABLE_FTS3_PARENTHESIS",
+                "SQLITE_ENABLE_FTS4",
+                "SQLITE_ENABLE_FTS5",
+                "SQLITE_ENABLE_JSON1",
+                "SQLITE_ENABLE_RTREE",
+                "SQLITE_CORE",
+                "SQLITE_ENABLE_EXTFUNC",
+                "SQLITE_ENABLE_CSV",
+                "SQLITE_ENABLE_SHA3",
+                "SQLITE_USE_URI",
+                "SQLITE_USER_AUTHENTICATION"
+            }
+
+
 
         project "sqlite3shell"
             kind "ConsoleApp"
